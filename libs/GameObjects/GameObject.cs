@@ -2,6 +2,9 @@
 
 public class GameObject : IGameObject, IMovement
 {
+    public bool Collidable{ get; set; }
+    public bool Movable{ get; set; }
+
     private char _charRepresentation = '#';
     private ConsoleColor _color;
 
@@ -63,9 +66,11 @@ public class GameObject : IGameObject, IMovement
     }
 
     public void Move(int dx, int dy) {
+        
         _prevPosX = _posX;
         _prevPosY = _posY;
         _posX += dx;
         _posY += dy;
+        Console.WriteLine("New Position: (" + _posX + ", " + _posY + ")");
     }
 }
