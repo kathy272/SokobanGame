@@ -25,26 +25,36 @@ public sealed class InputHandler{
         GameObject focusedObject = engine.GetFocusedObject();
 
         if (focusedObject != null) {
+              int dx = 0;
+        int dy = 0;
             // Handle keyboard input to move the player
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    focusedObject.Move(0, -1);
+                    dy = -1;
                     break;
                 case ConsoleKey.DownArrow:
-                    focusedObject.Move(0, 1);
+                    dy = 1;
                     break;
                 case ConsoleKey.LeftArrow:
-                    focusedObject.Move(-1, 0);
+                    dx = -1;
                     break;
                 case ConsoleKey.RightArrow:
-                    focusedObject.Move(1, 0);
+                    dx = 1;
                     break;
                 default:
                     break;
             }
+            if (engine.CanMove(focusedObject, dx, dy))
+            {
+                focusedObject.Move(dx, dy);
+                engine.Render();
+            }
+            else
+            {
+Console.WriteLine("You can't move there!");         }
         }
         
     }
-
+ 
 }

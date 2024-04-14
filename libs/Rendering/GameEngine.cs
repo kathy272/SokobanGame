@@ -6,6 +6,7 @@ namespace libs;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 
+// Singleton class that manages the game state
 public sealed class GameEngine
 {
     private static GameEngine? _instance;
@@ -41,6 +42,8 @@ public sealed class GameEngine
         return _focusedObject;
     }
 
+
+
     public void Setup(){
 
         //Added for proper display of game characters
@@ -59,6 +62,7 @@ public sealed class GameEngine
         _focusedObject = gameObjects.OfType<Player>().First();
 
     }
+
 
     public void Render() {
         
@@ -112,4 +116,32 @@ public sealed class GameEngine
             Console.Write(' ');
         }
     }
+    public void GetPlayerPosition()
+{
+    
+    map.GetPlayerPosition();
+}
+
+public bool CanMove(GameObject player, int dx, int dy)
+{
+    int newPosX = player.PosX + dx;
+    int newPosY = player.PosY + dy;
+
+    if (newPosX < 0 || newPosX >= map.MapWidth || newPosY < 0 || newPosY >= map.MapHeight)
+    {
+        Console.WriteLine("Out of bounds");
+        return false;
+    }
+
+    GameObject gameObject = map.Get(newPosY, newPosX);
+
+    if (gameObject is Obstacle )
+    {
+        Console.WriteLine("Obstacle or wall");
+        return false;
+    }
+
+    return true;
+}
+    
 }

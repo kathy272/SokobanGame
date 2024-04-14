@@ -5,7 +5,7 @@ public class GameObject : IGameObject, IMovement
     public bool Collidable{ get; set; }
     public bool Movable{ get; set; }
 
-    private char _charRepresentation = '#';
+   private char _charRepresentation = '#';
     private ConsoleColor _color;
 
     private int _posX;
@@ -64,6 +64,7 @@ public class GameObject : IGameObject, IMovement
     public int GetPrevPosX() {
         return _prevPosX;
     }
+      
 
     public void Move(int dx, int dy) {
         

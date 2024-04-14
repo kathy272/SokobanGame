@@ -5,7 +5,7 @@ public class Player : GameObject {
 
     public Player () : base(){
         Type = GameObjectType.Player;
-        CharRepresentation = '☻';
+        CharRepresentation = 'P';
         Color = ConsoleColor.DarkYellow;
     }
 
