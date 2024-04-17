@@ -23,6 +23,11 @@ public sealed class InputHandler{
     public void Handle(ConsoleKeyInfo keyInfo)
     {
         GameObject focusedObject = engine.GetFocusedObject();
+      GameObject player = engine.GetPlayer();
+        GameObject box = engine.GetBox();
+        GameObject goal = engine.GetGoal();
+        GameObject wall = engine.GetWall();
+
 
         if (focusedObject != null) {
               int dx = 0;
@@ -32,20 +37,28 @@ public sealed class InputHandler{
             {
                 case ConsoleKey.UpArrow:
                     dy = -1;
+                    focusedObject.CheckBoxCollision(box, player, Direction.Up, dx, dy);
+                    engine.CanMoveBox(wall, player, box, Direction.Up);
                     break;
                 case ConsoleKey.DownArrow:
                     dy = 1;
+                    focusedObject.CheckBoxCollision(box, player, Direction.Down, dx, dy);
+                    engine.CanMoveBox(wall, player, box, Direction.Down);
                     break;
                 case ConsoleKey.LeftArrow:
                     dx = -1;
+                    focusedObject.CheckBoxCollision(box, player, Direction.Left,    dx, dy);
+                    engine.CanMoveBox(wall, player, box, Direction.Left);
                     break;
                 case ConsoleKey.RightArrow:
                     dx = 1;
+                    focusedObject.CheckBoxCollision(box, player, Direction.Right, dx, dy);
+                    engine.CanMoveBox(wall, player, box, Direction.Right);
                     break;
                 default:
                     break;
             }
-            if (engine.CanMove(focusedObject, dx, dy))
+            if (engine.CanMove(focusedObject, box, dx, dy))
             {
              
                 focusedObject.Move(dx, dy);

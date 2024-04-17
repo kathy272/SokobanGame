@@ -76,18 +76,18 @@ public class Map {
     }
 
 
-    public void GetPlayerPosition(){
-        for (int i = 0; i < GameObjectLayer.GetLength(0); i++)
-        {
-            for (int j = 0; j < GameObjectLayer.GetLength(1); j++)
-            {
-                if (GameObjectLayer[i, j].Type == GameObjectType.Player)
-                {
-                    Console.WriteLine("Player position: " + i + ", " + j);
-                }
-            }
-        }
-    }
+    // public void GetPlayerPosition(){
+    //     for (int i = 0; i < GameObjectLayer.GetLength(0); i++)
+    //     {
+    //         for (int j = 0; j < GameObjectLayer.GetLength(1); j++)
+    //         {
+    //             if (GameObjectLayer[i, j].Type == GameObjectType.Player)
+    //             {
+    //                 Console.WriteLine("Player position: " + i + ", " + j);
+    //             }
+    //         }
+    //     }
+    // }
 
     // public void GetMoveCount(){
     //     int moveCount = 0;

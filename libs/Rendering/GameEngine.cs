@@ -42,6 +42,101 @@ public sealed class GameEngine
         return _focusedObject;
     }
 
+public GameObject GetBox(){
+    foreach (var gameObject in gameObjects)
+    {
+        if(gameObject is Box){
+            return gameObject;
+        }
+    }
+     return null;
+}
+public GameObject GetPlayer(){
+    foreach (var gameObject in gameObjects)
+    {
+        if(gameObject is Player){
+            return gameObject;
+        }
+    }
+     return null;
+}
+public GameObject GetGoal(){
+    foreach (var gameObject in gameObjects)
+    {
+        if(gameObject is Goal){
+            return gameObject;
+        }
+    }
+     return null;
+}
+public GameObject GetWall(){
+    foreach (var gameObject in gameObjects)
+    {
+        if(gameObject is Obstacle){
+            return gameObject;
+        }
+    }
+     return null;
+}
+
+public void CanMoveBox(GameObject wall, GameObject player, GameObject box, Direction playerdirection)
+{
+    
+
+   GameObject playerObj = GetPlayer();
+   GameObject boxObj = GetBox();
+
+   foreach (GameObject obj in gameObjects){
+         if(obj is Obstacle){
+            wall = obj;
+             switch (playerdirection)
+                {
+                    case Direction.Up:
+                       if(playerObj.PosX == wall.PosX && playerObj.PosY == wall.PosY){
+                           playerObj.PosY++;
+                       }
+                       else if(boxObj.PosX == wall.PosX && boxObj.PosY == wall.PosY){
+                           playerObj.PosY++;
+                           boxObj.PosY++;
+                       }
+                        break;
+                    case Direction.Down:
+                        if(playerObj.PosX == wall.PosX && playerObj.PosY == wall.PosY){
+                           playerObj.PosY--;
+                       }
+                       else if(boxObj.PosX == wall.PosX && boxObj.PosY == wall.PosY){
+                           playerObj.PosY--;
+                           boxObj.PosY--;
+                       }
+                        break;
+                    case Direction.Left:
+
+                        if(playerObj.PosX == wall.PosX && playerObj.PosY == wall.PosY){
+                           playerObj.PosX++;
+                       }
+                       else if(boxObj.PosX == wall.PosX && boxObj.PosY == wall.PosY){
+                           playerObj.PosX++;
+                           boxObj.PosX++;
+                       }
+                        break;
+                    case Direction.Right:
+                        if(playerObj.PosX == wall.PosX && playerObj.PosY == wall.PosY){
+                           playerObj.PosX--;
+                       }
+                       else if(boxObj.PosX == wall.PosX && boxObj.PosY == wall.PosY){
+                           playerObj.PosX--;
+                           boxObj.PosX--;
+                       }
+                        break;
+                        default:
+                            break;
+                       }
+                       }
+                       }
+                       
+                       }
+
+
 
 
     public void Setup(){
@@ -63,6 +158,19 @@ public sealed class GameEngine
 
     }
 
+   public bool finishLevel(GameObject box, GameObject goal)
+    {
+        // Check if the box is on the goal
+        if (box.PosX == goal.PosX && box.PosY == goal.PosY)
+        {
+            Console.WriteLine("Level finished!");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public void Render() {
         
@@ -72,17 +180,30 @@ public sealed class GameEngine
         map.Initialize();
 
         PlaceGameObjects();
-
-        //Render the map
-        for (int i = 0; i < map.MapHeight; i++)
+        GameObject box = GetBox();
+        GameObject goal = GetGoal();
+        GameObject player = GetPlayer();
+      
+    	    //Console.WriteLine("Position Box: (" + box.PosX + ", " + box.PosY + ")");
+              //  Console.WriteLine("Position Player: (" + player.PosX + ", " + player.PosY + ")");
+        if (!finishLevel(box, goal))
         {
-            for (int j = 0; j < map.MapWidth; j++)
+            
+            //Render the map
+            for (int i = 0; i < map.MapHeight; i++)
             {
-                DrawObject(map.Get(i, j));
+                for (int j = 0; j < map.MapWidth; j++)
+                {
+                    DrawObject(map.Get(i, j));
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
         }
+      else {
+        Console.WriteLine("Level finished!");
     }
+    }
+    
     
     // Method to create GameObject using the factory from clients
     public GameObject CreateGameObject(dynamic obj)
@@ -116,42 +237,17 @@ public sealed class GameEngine
             Console.Write(' ');
         }
     }
-    public void GetPlayerPosition()
-{
-    
-    map.GetPlayerPosition();
-}
+  
 
-// public void MoveBox(GameObject player, GameObject box, int dx, int dy)
-// {
-//     if(CanMoveBox(player, box, dx, dy)){
-    
-//     int newPosX = player.PosX + dx;
-//     int newPosY = player.PosY + dy;
-// GameObject gameObject = map.Get(newPosY, newPosX);
-
-//     if (gameObject is box ){
-//   box.PosX = newPosX;
-//     box.PosY = newPosY;
-
-//     return true;
-//     }
-    
-// }
-// }
-// public bool CanMoveBox(GameObject player, GameObject box, int dx, int dy)
-// {
-//     int newPosX = player.PosX + dx+1;
-//     int newPosY = player.PosY + dy+1;
- 
-// }
-
-public bool CanMove(GameObject player, int dx, int dy)
+public bool CanMove(GameObject player,GameObject box, int dx, int dy)
 {
     int newPosX = player.PosX + dx;
     int newPosY = player.PosY + dy;
 
-    if (newPosX < 0 || newPosX >= map.MapWidth || newPosY < 0 || newPosY >= map.MapHeight)
+    int newBoxPosX = box.PosX + dx;
+    int newBoxPosY = box.PosY + dy;
+
+    if (newPosX < 0 || newPosX >= map.MapWidth || newPosY < 0 || newPosY >= map.MapHeight || newBoxPosX < 0 || newBoxPosX >= map.MapWidth || newBoxPosY < 0 || newBoxPosY >= map.MapHeight)
     {
         Console.WriteLine("Out of bounds");
         return false;
@@ -169,5 +265,4 @@ public bool CanMove(GameObject player, int dx, int dy)
     return true;
 }
 
-
-}
+                }
