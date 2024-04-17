@@ -88,4 +88,19 @@ public class Map {
             }
         }
     }
+
+    // public void GetMoveCount(){
+    //     int moveCount = 0;
+    //     for (int i = 0; i < GameObjectLayer.GetLength(0); i++)
+    //     {
+    //         for (int j = 0; j < GameObjectLayer.GetLength(1); j++)
+    //         {
+    //             if (GameObjectLayer[i, j].Type == GameObjectType.Player)
+    //             {
+    //                 moveCount++;
+    //             }
+    //         }
+    //     }
+    //     Console.WriteLine("Move count: " + moveCount);
+    // }
 }

@@ -47,6 +47,7 @@ public sealed class InputHandler{
             }
             if (engine.CanMove(focusedObject, dx, dy))
             {
+             
                 focusedObject.Move(dx, dy);
                 engine.Render();
             }

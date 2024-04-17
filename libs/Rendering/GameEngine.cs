@@ -122,6 +122,30 @@ public sealed class GameEngine
     map.GetPlayerPosition();
 }
 
+// public void MoveBox(GameObject player, GameObject box, int dx, int dy)
+// {
+//     if(CanMoveBox(player, box, dx, dy)){
+    
+//     int newPosX = player.PosX + dx;
+//     int newPosY = player.PosY + dy;
+// GameObject gameObject = map.Get(newPosY, newPosX);
+
+//     if (gameObject is box ){
+//   box.PosX = newPosX;
+//     box.PosY = newPosY;
+
+//     return true;
+//     }
+    
+// }
+// }
+// public bool CanMoveBox(GameObject player, GameObject box, int dx, int dy)
+// {
+//     int newPosX = player.PosX + dx+1;
+//     int newPosY = player.PosY + dy+1;
+ 
+// }
+
 public bool CanMove(GameObject player, int dx, int dy)
 {
     int newPosX = player.PosX + dx;
@@ -141,7 +165,9 @@ public bool CanMove(GameObject player, int dx, int dy)
         return false;
     }
 
+
     return true;
 }
-    
+
+
 }
