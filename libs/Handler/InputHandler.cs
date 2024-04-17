@@ -29,9 +29,18 @@ public sealed class InputHandler{
         GameObject wall = engine.GetWall();
 
 
+
         if (focusedObject != null) {
               int dx = 0;
         int dy = 0;
+        // if (keyInfo.Modifiers == ConsoleModifiers.Control && keyInfo.Key == ConsoleKey.Z)
+        // {
+            
+        //    engine.UndoMove();
+        //     engine.Render();
+        //     return;
+        // }
+        
             // Handle keyboard input to move the player
             switch (keyInfo.Key)
             {
@@ -54,6 +63,10 @@ public sealed class InputHandler{
                     dx = 1;
                     focusedObject.CheckBoxCollision(box, player, Direction.Right, dx, dy);
                     engine.CanMoveBox(wall, player, box, Direction.Right);
+                    break;
+                case ConsoleKey.D:
+                  Console.WriteLine("Undo");
+                  engine.UndoMove( player, box);
                     break;
                 default:
                     break;
